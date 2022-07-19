@@ -2,11 +2,24 @@ import json
 import requests
 
 request = requests.get('https://jsonplaceholder.typicode.com/todos')
-todos   = json.loads(request.content);
 
-list = []
+if(request.status_code == 200):
+    todos  = json.loads(request.content);
 
-for i in range(20):
-    list.append(todos[i])
+    list = []
 
-print(list)
+    for i in range(20):
+        register = {
+            "id":todos[i]['id'], 
+            "title":todos[i]['title']
+        }
+        list.append(register)
+
+    print(list)
+else:
+    error = {
+        "error": {
+        "reason": "error description",
+        }
+    }
+    #print(error)
